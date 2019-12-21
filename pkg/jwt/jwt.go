@@ -2,9 +2,11 @@ package jwt
 
 import (
 	"errors"
-	"github.com/dgrijalva/jwt-go"
-	"joe-micro/lib/config"
 	"time"
+
+	"github.com/dgrijalva/jwt-go"
+
+	"lcb123/pkg/config"
 )
 
 // 一些常量

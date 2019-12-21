@@ -1,0 +1,41 @@
+# 启动模式
+debug: true
+
+# 项目配置
+service:
+  name: com.lcb123.srv.user
+  port: :9081
+  version: latest
+
+#jwt key
+jwt:
+  signKey: api
+  timeOut: 10
+
+# mysql配置
+mysql:
+  username : root
+  port : 3306
+  password : 123456
+  db_name : rbac
+  address : 127.0.0.1
+
+# redis 配置
+redis:
+  host: 127.0.0.1
+  port: 6379
+  auth: 123456
+  db:  12
+
+
+# consul 配置
+etcd: 127.0.0.1:2379,127.0.0.1:2380
+
+# jaeger 配置
+jaeger:  127.0.0.1:6831
+
+# nsq 配置
+nsq:
+  address: 192.168.1.228:4150
+  lookup: 192.168.1.228:4161
+  maxInFlight: 1

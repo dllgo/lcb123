@@ -2,17 +2,19 @@ package trace
 
 import (
 	"context"
+	"io"
+	"math/rand"
+	"net/http"
+	"time"
+
 	"github.com/gin-gonic/gin"
 	"github.com/micro/go-micro/metadata"
 	"github.com/opentracing/opentracing-go"
 	"github.com/opentracing/opentracing-go/ext"
 	"github.com/uber/jaeger-client-go"
 	jaegercfg "github.com/uber/jaeger-client-go/config"
-	"io"
-	"joe-micro/lib/log"
-	"math/rand"
-	"net/http"
-	"time"
+
+	"lcb123/pkg/log"
 )
 
 const contextTracerKey = "Tracer-context"

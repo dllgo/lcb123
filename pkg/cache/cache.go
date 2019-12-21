@@ -2,11 +2,13 @@ package cache
 
 import (
 	"fmt"
+	"time"
+
 	cache2 "github.com/astaxie/beego/cache"
 	_ "github.com/astaxie/beego/cache/redis"
-	"joe-micro/lib/config"
-	"joe-micro/lib/log"
-	"time"
+
+	"lcb123/pkg/config"
+	"lcb123/pkg/log"
 )
 
 var myCache cache2.Cache

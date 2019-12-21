@@ -1,11 +1,12 @@
 package config
 
 import (
-	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"log"
 	"os"
 	"time"
+
+	"gopkg.in/yaml.v2"
 )
 
 // 使用者根据自己需要修改这个结构体
@@ -18,11 +19,10 @@ var C struct {
 		Version string `yaml:"version"`
 	}
 
-	Jwt  struct{
-		SignKey string `yaml:"signKey"`
-		TimeOut  time.Duration   `yaml:"timeOut"`
-	}   `yaml:"jwt"`
-
+	Jwt struct {
+		SignKey string        `yaml:"signKey"`
+		TimeOut time.Duration `yaml:"timeOut"`
+	} `yaml:"jwt"`
 
 	Mysql struct {
 		Address  string `yaml:"address"`
@@ -40,7 +40,7 @@ var C struct {
 		Db   int    `yaml:"db"`
 	} `yaml:"redis"`
 
-	Consul string `yaml:"consul"`
+	Etcd string `yaml:"etcd"`
 
 	Jaeger string `yaml:"jaeger"`
 

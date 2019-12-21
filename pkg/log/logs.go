@@ -60,7 +60,7 @@ import (
 	"github.com/rifflock/lfshook"
 	"github.com/sirupsen/logrus"
 	"gopkg.in/sohlich/elogrus.v3"
-	"joe-micro/lib/config"
+	"lcb123/pkg/config"
 	"os"
 	"time"
 )

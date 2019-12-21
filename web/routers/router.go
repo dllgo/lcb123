@@ -1,37 +1,27 @@
 package routers
 
 import (
-	"time"
+	"lcb123/pkg/log"
+	"lcb123/pkg/trace"
 
-	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	ginSwagger "github.com/swaggo/gin-swagger"
-	"github.com/swaggo/gin-swagger/swaggerFiles"
 )
 
-// 用户登陆接口
-// @Summary 用户登陆接口
-// @Tags UserControl
-// @Accept json
-// @Produce json
-// @Param username query string true "用户名"
-// @Param password query string true "密码"
-// @Param code     query string false "验证码"
-// @Success 200 {object} response.JsonObject
-// @Router /user/api/login [post]
+func Init() *gin.Engine {
+	gin.SetMode(gin.ReleaseMode) //是否生产模式启动
+	router := gin.Default()
 
-// 路由总入口，注册所有微服务的 路由
-func Register(router *gin.Engine) {
-	//配置跨域
-	router.Use(cors.New(cors.Config{
-		AllowMethods:     []string{"GET", "POST"},
-		AllowHeaders:     []string{"Origin", "Content-Length", "Content-Type", "ACCESS_TOKEN"},
-		AllowCredentials: false,
-		AllowAllOrigins:  true,
-		MaxAge:           12 * time.Hour,
-	}))
-	router.HandleMethodNotAllowed = true
-	// 使用gin-swagger 中间件
-	router.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	// gin日志
+	router.Use(log.GinLogger())
 
+	// jaeger trace 追踪
+	router.Use(trace.TracerWrapper)
+	// 跨域
+	router.Use(func(ctx *gin.Context) {
+		ctx.Header("Access-Control-Allow-Origin", "*")                   //跨域
+		ctx.Header("Access-Control-Allow-Headers", "token,Content-Type") //必须的请求头
+		ctx.Header("Access-Control-Allow-Methods", "OPTIONS,POST,GET")   //接收的请求方法
+	})
+
+	return router
 }

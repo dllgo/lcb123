@@ -2,10 +2,12 @@ package orm
 
 import (
 	"fmt"
+
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
-	"joe-micro/lib/config"
-	"joe-micro/lib/log"
+
+	"lcb123/pkg/config"
+	"lcb123/pkg/log"
 )
 
 var db *gorm.DB
@@ -36,5 +38,3 @@ func init() {
 func GetDB() *gorm.DB {
 	return db
 }
-
-

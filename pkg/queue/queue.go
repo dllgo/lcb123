@@ -1,14 +1,16 @@
 package queue
 
 import (
-	"github.com/nsqio/go-nsq"
-	"joe-micro/lib/log"
 	"os"
 	"os/signal"
 	"strings"
 	"sync"
 	"syscall"
 	"time"
+
+	"github.com/nsqio/go-nsq"
+
+	"lcb123/pkg/log"
 )
 
 var producer *nsq.Producer
@@ -90,8 +92,8 @@ func gracefulStop() {
 			c.Stop()
 			// disconnect from all lookupd
 			for _, addr := range addrNsqLookups {
-				err:=c.DisconnectFromNSQLookupd(addr)
-				if err!=nil {
+				err := c.DisconnectFromNSQLookupd(addr)
+				if err != nil {
 					log.Error(err)
 				}
 			}
