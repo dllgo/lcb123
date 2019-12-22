@@ -4,7 +4,7 @@ debug: true
 # 项目配置
 service:
   name: com.lcb123.web.api
-  port: :9082
+  port: :9081
   version: latest
 
 #jwt key
@@ -17,7 +17,7 @@ mysql:
   username : root
   port : 3306
   password : 123456
-  db_name : rbac
+  db_name : lcb123
   address : 127.0.0.1
 
 # redis 配置
@@ -29,7 +29,7 @@ redis:
 
 
 # consul 配置
-etcd: 127.0.0.1:2379,127.0.0.1:2380
+etcd: 127.0.0.1:2379
 
 # jaeger 配置
 jaeger:  127.0.0.1:6831

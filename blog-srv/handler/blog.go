@@ -2,6 +2,8 @@ package handler
 
 import (
 	"context"
+	"lcb123/pkg/micros"
+	pbu "lcb123/user-srv/proto/user"
 
 	"github.com/micro/go-micro/util/log"
 
@@ -13,7 +15,11 @@ type Blog struct{}
 // Call is a single request handler called via client.Call or the generated client code
 func (e *Blog) Call(ctx context.Context, req *blog.Request, rsp *blog.Response) error {
 	log.Log("Received Blog.Call request")
-	rsp.Msg = "Hello " + req.Name
+	userClient := pbu.NewUserService("com.lcb123.srv.user", micros.GetService().Client())
+	rspu, _ := userClient.Call(ctx, &pbu.Request{
+		Name: "67890",
+	})
+	rsp.Msg = rspu.Msg
 	return nil
 }
 

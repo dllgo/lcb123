@@ -3,35 +3,31 @@ syntax = "proto3";
 package com.lcb123.srv.user;
 
 service User {
-	rpc Call(Request) returns (Response) {}
-	rpc Stream(StreamingRequest) returns (stream StreamingResponse) {}
-	rpc PingPong(stream Ping) returns (stream Pong) {}
-}
-
-message Message {
-	string say = 1;
+	rpc Login (LoginRequest) returns (Response){}
+	rpc Logout (Request) returns (Response){}
+	rpc UserDetail(UserRequest) returns (UserInfo) {}
 }
 
 message Request {
 	string name = 1;
 }
-
 message Response {
-	string msg = 1;
+	int64 code = 1;
+	string msg = 2;
+}
+message LoginRequest {
+	string username = 1;
+	string password = 2;
+}
+message UserRequest {
+	string uid = 1;
 }
 
-message StreamingRequest {
-	int64 count = 1;
+message UserInfo {
+	string username = 1;
+	string avatar  =2 ;
+	string uid     =3 ;
 }
-
-message StreamingResponse {
-	int64 count = 1;
-}
-
-message Ping {
-	int64 stroke = 1;
-}
-
-message Pong {
-	int64 stroke = 1;
+message Message {
+	string say = 1;
 }

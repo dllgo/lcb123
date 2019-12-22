@@ -5,44 +5,34 @@ import (
 
 	"github.com/micro/go-micro/util/log"
 
+	"lcb123/user-srv/model"
 	user "lcb123/user-srv/proto/user"
 )
 
 type User struct{}
 
-// Call is a single request handler called via client.Call or the generated client code
-func (e *User) Call(ctx context.Context, req *user.Request, rsp *user.Response) error {
+func (e *User) Login(ctx context.Context, req *user.LoginRequest, rsp *user.Response) error {
 	log.Log("Received User.Call request")
-	rsp.Msg = "Hello " + req.Name
+	rsp.Msg = "Hello "
 	return nil
 }
-
-// Stream is a server side stream handler called via client.Stream or the generated client code
-func (e *User) Stream(ctx context.Context, req *user.StreamingRequest, stream user.User_StreamStream) error {
-	log.Logf("Received User.Stream request with count: %d", req.Count)
-
-	for i := 0; i < int(req.Count); i++ {
-		log.Logf("Responding: %d", i)
-		if err := stream.Send(&user.StreamingResponse{
-			Count: int64(i),
-		}); err != nil {
-			return err
-		}
-	}
-
+func (e *User) Logout(ctx context.Context, req *user.Request, rsp *user.Response) error {
+	log.Log("Received User.Call request")
+	rsp.Msg = "Hello "
 	return nil
 }
+func (e *User) UserDetail(ctx context.Context, req *user.UserRequest, rsp *user.UserInfo) error {
 
-// PingPong is a bidirectional stream handler called via client.Stream or the generated client code
-func (e *User) PingPong(ctx context.Context, stream user.User_PingPongStream) error {
-	for {
-		req, err := stream.Recv()
-		if err != nil {
-			return err
-		}
-		log.Logf("Got ping %v", req.Stroke)
-		if err := stream.Send(&user.Pong{Stroke: req.Stroke}); err != nil {
-			return err
-		}
+	log.Info("Received Service.GetOne request")
+
+	admin := model.AdminUser{}
+	user, err := admin.GetByID(req.Uid)
+	if err != nil {
+		log.Warn(err.Error())
+		return err
 	}
+	rsp.Uid = req.Uid
+	rsp.Username = user.UserName
+	rsp.Avatar = "user.Avatar"
+	return nil
 }
