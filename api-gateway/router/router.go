@@ -32,7 +32,5 @@ func Init() *gin.Engine {
 	r := router.Group("/user")
 	// use the generated client stub
 	r.GET("/test", handler.Anything)
-	r.GET("/test1", handler.Anything1)
-	r.GET("/test2", handler.Anything2)
 	return router
 }
